@@ -9,6 +9,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@flowcore/pathways": "npm:@jsr/flowcore__pathways"
+    "@flowcore/pathways": "npm:@jsr/flowcore__pathways",
+    "zod": "^3.25.28"
   }
 }
