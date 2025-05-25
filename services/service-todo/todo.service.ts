@@ -1,6 +1,8 @@
 import FlowcorePathwaysBuilder from "../../flowcore-pathway-builder";
 import {
+	todoItemArchiveSchema,
 	todoItemCreateSchema,
+	type TodoItemFinishedReason,
 	todoItemUpdateSchema,
 } from "../../contracts/todo-item";
 import { flowcoreTodoItemsStructure } from "../../contracts/flowcore-endpoints";
@@ -43,9 +45,34 @@ export class Todo {
 			{
 				todoId,
 				action,
-				updatedTimestamps: [...formerUpdateTimestamps, timestamp],
+				updateTimestamps: [...formerUpdateTimestamps, timestamp],
 				originalTimestamp,
 			},
 		);
+	}
+	archive(
+		todoId: string,
+		formerUpdateTimestamps: string[],
+		originalTimestamp: string,
+		action: string,
+		reason: TodoItemFinishedReason,
+	) {
+		const archivedTimestamp = new Date().toLocaleString("fo-FO", {
+			timeZone: "Atlantic/Faroe",
+		});
+		const flowType = flowcoreTodoItemsStructure.flowType;
+		const eventType = flowcoreTodoItemsStructure.eventTypes.todoArchivedV0;
+		FlowcorePathwaysBuilder.register({
+			flowType,
+			eventType,
+			schema: todoItemArchiveSchema,
+		}).write(`${flowType}/${eventType}`, {
+			todoId,
+			originalTimestamp,
+			updateTimestamps: [...formerUpdateTimestamps],
+			archivedTimestamp,
+			action,
+			reason,
+		});
 	}
 }
