@@ -1,0 +1,14 @@
+{
+  "name": "test_project",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@flowcore/pathways": "npm:@jsr/flowcore__pathways"
+  }
+}
