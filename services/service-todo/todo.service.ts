@@ -9,48 +9,47 @@ import { flowcoreTodoItemsStructure } from "../../contracts/flowcore-endpoints";
 import uuidv4 from "../../utility/uuidv4";
 
 export class Todo {
-	add(action: string) {
+	addItem(action: string) {
 		const id = uuidv4();
-		const timestamp = new Date().toLocaleString("fo-FO", {
+		const createdTimestamp = new Date().toLocaleString("fo-FO", {
 			timeZone: "Atlantic/Faroe",
 		});
+		const flowType = flowcoreTodoItemsStructure.flowType;
+		const eventType = flowcoreTodoItemsStructure.eventTypes.todoCreatedV0;
 		FlowcorePathwaysBuilder.register({
-			flowType: flowcoreTodoItemsStructure.flowType,
-			eventType: flowcoreTodoItemsStructure.eventTypes.todoCreatedV0,
+			flowType,
+			eventType,
 			schema: todoItemCreateSchema,
-		}).write("todo.v0/todo.created.v0", {
+		}).write(`${flowType}/${eventType}`, {
 			todoId: id,
-			timestamp,
+			timestamp: createdTimestamp,
 			action,
 		});
 	}
-	update(
+	updateItem(
 		todoId: string,
 		action: string,
 		formerUpdateTimestamps: string[],
 		originalTimestamp: string,
 	) {
-		const timestamp = new Date().toLocaleString("fo-FO", {
+		const updatedTimestamp = new Date().toLocaleString("fo-FO", {
 			timeZone: "Atlantic/Faroe",
 		});
+		const flowType = flowcoreTodoItemsStructure.flowType;
+		const eventType = flowcoreTodoItemsStructure.eventTypes.todoUpdatedV0;
 
 		FlowcorePathwaysBuilder.register({
-			flowType: flowcoreTodoItemsStructure.flowType,
-			eventType: flowcoreTodoItemsStructure.eventTypes.todoUpdatedV0,
+			flowType: flowType,
+			eventType: eventType,
 			schema: todoItemUpdateSchema,
-		}).write(
-			`${flowcoreTodoItemsStructure.flowType}/${
-				flowcoreTodoItemsStructure.eventTypes.todoUpdatedV0
-			}`,
-			{
-				todoId,
-				action,
-				updateTimestamps: [...formerUpdateTimestamps, timestamp],
-				originalTimestamp,
-			},
-		);
+		}).write(`${flowType}/${eventType}`, {
+			todoId,
+			action,
+			updateTimestamps: [...formerUpdateTimestamps, updatedTimestamp],
+			originalTimestamp,
+		});
 	}
-	archive(
+	archiveItem(
 		todoId: string,
 		formerUpdateTimestamps: string[],
 		originalTimestamp: string,
