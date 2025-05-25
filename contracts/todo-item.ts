@@ -8,7 +8,8 @@ export const todoItemCreateSchema = Type.Object({
 
 export const todoItemUpdateSchema = Type.Object({
 	todoId: Type.String(),
-	timestamp: Type.String(),
+	originalTimestamp: Type.String(),
+	updatedTimestamps: Type.Array(Type.String()),
 	action: Type.String(),
 });
 
@@ -19,7 +20,8 @@ enum Reason {
 
 export const todoItemArchiveSchema = Type.Object({
 	todoId: Type.String(),
-	timestamp: Type.String(),
+	originalTimestamp: Type.String(),
+	updatedTimestamps: Type.Array(Type.String()),
 	archivedTimestamp: Type.String(),
 	action: Type.String(),
 	reason: Type.Enum(Reason),

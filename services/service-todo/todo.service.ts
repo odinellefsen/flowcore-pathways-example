@@ -1,5 +1,8 @@
 import FlowcorePathwaysBuilder from "../../flowcore-pathway-builder";
-import { todoItemCreateSchema } from "../../contracts/todo-item";
+import {
+	todoItemCreateSchema,
+	todoItemUpdateSchema,
+} from "../../contracts/todo-item";
 import { flowcoreTodoItemsStructure } from "../../contracts/flowcore-endpoints";
 import uuidv4 from "../../utility/uuidv4";
 
@@ -18,5 +21,31 @@ export class Todo {
 			timestamp,
 			action,
 		});
+	}
+	update(
+		todoId: string,
+		action: string,
+		formerUpdateTimestamps: string[],
+		originalTimestamp: string,
+	) {
+		const timestamp = new Date().toLocaleString("fo-FO", {
+			timeZone: "Atlantic/Faroe",
+		});
+
+		FlowcorePathwaysBuilder.register({
+			flowType: flowcoreTodoItemsStructure.flowType,
+			eventType: flowcoreTodoItemsStructure.eventTypes.todoUpdatedV0,
+			schema: todoItemUpdateSchema,
+		}).write(
+			`${flowcoreTodoItemsStructure.flowType}/${
+				flowcoreTodoItemsStructure.eventTypes.todoUpdatedV0
+			}`,
+			{
+				todoId,
+				action,
+				updatedTimestamps: [...formerUpdateTimestamps, timestamp],
+				originalTimestamp,
+			},
+		);
 	}
 }
