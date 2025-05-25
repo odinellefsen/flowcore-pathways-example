@@ -1,8 +1,10 @@
 import Elysia from "elysia";
+import swagger from "@elysiajs/swagger";
 import { todoItemRoute } from "./todo-item";
 
 export const ElysiaMainInstance = new Elysia({ prefix: "/api" })
 	.get("/", () => "Hello World!")
+	.use(swagger())
 	.use(todoItemRoute)
 	.listen(3000);
 
