@@ -1,9 +1,10 @@
 import Elysia from "elysia";
+import { todoItemRoute } from "./todo-item";
 
-export const ElysiaMainInstance = new Elysia({ prefix: "/api" }).get(
-	"/",
-	() => "Hello World!",
-);
+export const ElysiaMainInstance = new Elysia({ prefix: "/api" })
+	.get("/", () => "Hello World!")
+	.use(todoItemRoute)
+	.listen(3000);
 
 export default ElysiaMainInstance;
 
