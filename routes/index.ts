@@ -3,9 +3,9 @@ import swagger from "@elysiajs/swagger";
 import { todoItemRoute } from "./todo-item";
 
 export const ElysiaMainInstance = new Elysia({ prefix: "/api" })
-	.get("/", () => "Hello World!")
 	.use(swagger())
 	.use(todoItemRoute)
+	.get("/", () => "Hello World!")
 	.listen(3000);
 
 export default ElysiaMainInstance;

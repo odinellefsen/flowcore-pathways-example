@@ -1,19 +1,19 @@
-import { z } from "zod";
+import { Type } from "@sinclair/typebox";
 
-export const todoItemCreateSchema = z.object({
-	todoId: z.string(),
-	timestamp: z.string(),
-	action: z.string(),
+export const todoItemCreateSchema = Type.Object({
+	todoId: Type.String(),
+	timestamp: Type.String(),
+	action: Type.String(),
 });
 
-export const todoItemUpdateSchema = z.object({
-	todoId: z.string(),
-	timestamp: z.string(),
-	action: z.string(),
+export const todoItemUpdateSchema = Type.Object({
+	todoId: Type.String(),
+	timestamp: Type.String(),
+	action: Type.String(),
 });
 
-export const todoItemArchiveSchema = z.object({
-	todoId: z.string(),
-	timestamp: z.string(),
-	action: z.string(),
+export const todoItemArchiveSchema = Type.Object({
+	todoId: Type.String(),
+	timestamp: Type.String(),
+	action: Type.String(),
 });
