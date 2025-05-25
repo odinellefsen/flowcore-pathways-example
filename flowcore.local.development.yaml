@@ -1,0 +1,12 @@
+development:
+  proxyEndpoints:
+    todo:
+      description: "get todo events"
+      dataCore: todo-app
+      flowType: todo.v0
+      events:
+        - todo.created.v0
+        - todo.updated.v0
+        - todo.archived.v0
+      endpoints:
+        - transform

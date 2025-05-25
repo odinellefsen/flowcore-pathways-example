@@ -9,6 +9,8 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
+    "local:stream": "env-cmd -x flowcore scenario local -f flowcore.yaml -f flowcore.local.yaml -f flowcore.local.development.yaml -s now -e http://localhost:3000/api/transform -H \"X-Secret: \\$TRANSFORMER_SECRET\"",
+    "local:stream:backlog": "env-cmd -x flowcore scenario local -f flowcore.yaml -f flowcore.local.yaml -f flowcore.local.development.yaml -e http://localhost:3000/api/transform -H \"X-Secret: \\$TRANSFORMER_SECRET\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch index.ts"
   },
