@@ -9,4 +9,4 @@ development:
         - todo.updated.v0
         - todo.archived.v0
       endpoints:
-        - transform
+        - todo.v0
